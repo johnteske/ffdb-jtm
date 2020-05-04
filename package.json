@@ -1,0 +1,14 @@
+{
+  "name": "ffdb-jtm",
+  "version": "1.0.0",
+  "description": "flat file database for johnteskemusic.com and related sites",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "John Teske",
+  "license": "MIT",
+  "dependencies": {
+    "prettier": "^2.0.5"
+  }
+}
