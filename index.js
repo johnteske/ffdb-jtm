@@ -1,27 +1,22 @@
-const fs = require("fs");
+const { promises: fs } = require("fs");
 const path = require("path");
 
-var directoryPath = path.join(__dirname, "data/performances");
+const directoryPath = path.join(__dirname, "data/performances");
 
-function getPerformances() {
-  fs.readdir(directoryPath, { withFileTypes: true }, function (err, files) {
-    if (err) {
-      return console.log("Unable to scan directory: " + err);
-    }
-    files
-      .filter((dirent) => dirent.isFile())
-      .map((dirent) => dirent.name)
-      .forEach((f) => readFile(path.join(directoryPath, f)));
-  });
-}
+async function getPerformances() {
+  const contents = await fs.readdir(directoryPath, { withFileTypes: true });
 
-function readFile(file) {
-  fs.readFile(file, "utf-8", (err, data) => {
-    if (err) {
-      throw err;
-    }
-    return data;
-  });
+  const filenames = contents
+    .filter((dirent) => dirent.isFile())
+    .map((dirent) => dirent.name);
+
+  return await Promise.all(
+    filenames.map(async (filename) => {
+      const filepath = path.join(directoryPath, filename);
+      const contents = JSON.parse(await fs.readFile(filepath, "utf-8"));
+      return { ...contents, date: "20" + filename.split("-")[0] };
+    })
+  );
 }
 
 module.exports = {
