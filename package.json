@@ -4,6 +4,7 @@
   "description": "flat file database for johnteskemusic.com and related sites",
   "main": "index.js",
   "scripts": {
+    "fmt": "prettier *.js --write",
     "test": "node tests.js"
   },
   "author": "John Teske",
@@ -11,6 +12,7 @@
   "devDependencies": {
     "prettier": "^2.0.5",
     "tape": "^5.0.0",
-    "tape-promise": "^4.0.0"
+    "tape-promise": "^4.0.0",
+    "ts.data.json": "^1.1.0"
   }
 }
