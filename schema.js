@@ -1,18 +1,18 @@
-const { JsonDecoder } = require("ts.data.json");
+const { JsonDecoder: jd } = require("ts.data.json");
 
-const performances = JsonDecoder.objectStrict(
+const performances = jd.objectStrict(
   {
-    date: JsonDecoder.string,
-    endDate: JsonDecoder.optional(JsonDecoder.string),
-    title: JsonDecoder.string,
-    time: JsonDecoder.optional(JsonDecoder.string),
-    short: JsonDecoder.optional(JsonDecoder.string),
-    long: JsonDecoder.optional(JsonDecoder.string),
-    price: JsonDecoder.optional(JsonDecoder.string),
-    address: JsonDecoder.optional(JsonDecoder.string),
-    url: JsonDecoder.optional(JsonDecoder.string),
-    tags: JsonDecoder.optional(JsonDecoder.array(JsonDecoder.string, "TODO")),
-    works: JsonDecoder.optional(JsonDecoder.array(JsonDecoder.string, "TODO")),
+    date: jd.string,
+    endDate: jd.optional(jd.string),
+    title: jd.string,
+    time: jd.optional(jd.string),
+    short: jd.optional(jd.string),
+    long: jd.optional(jd.string),
+    price: jd.optional(jd.string),
+    address: jd.optional(jd.string),
+    url: jd.optional(jd.string),
+    tags: jd.optional(jd.array(jd.string, "tags")),
+    works: jd.optional(jd.array(jd.string, "works")),
   },
   "Performance"
 );
