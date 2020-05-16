@@ -19,3 +19,4 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
+    - run: grep -r url data | cut -d'"' -f4 | sort | uniq | npx audit-urls
