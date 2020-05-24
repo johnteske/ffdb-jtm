@@ -17,8 +17,12 @@ async function getData(subdir) {
   return await Promise.all(
     filenames.map(async (filename) => {
       const filepath = path.join(dir, filename);
-      const content = JSON.parse(await fs.readFile(filepath, "utf-8"));
-      return { content, filename };
+      try {
+        const content = JSON.parse(await fs.readFile(filepath, "utf-8"));
+        return { content, filename };
+      } catch (err) {
+        throw new Error(`error while reading or parsing ${filename}`);
+      }
     })
   );
 }
