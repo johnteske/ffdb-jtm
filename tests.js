@@ -1,19 +1,20 @@
 const test = require("tape-promise/tape");
 
-const { getPerformances } = require("./index");
+const { getPerformances, getRecordings } = require("./index");
 const schema = require("./schema");
 
 test("getPerformances", async (t) => {
-  // getter
-  await t.doesNotReject(getPerformances);
-
-  // TODO full schema test
   const performances = await getPerformances();
-  const first = performances[0];
-  t.equal(first.date.length, 8);
-
   t.assert(
-    performances.every((p) => schema.performances.decode(p).isOk()),
+    performances.every((p) => schema.performance.decode(p).isOk()),
+    "schema"
+  );
+});
+
+test("getRecordings", async (t) => {
+  const recordings = await getRecordings();
+  t.assert(
+    recordings.every((p) => schema.recording.decode(p).isOk()),
     "schema"
   );
 });

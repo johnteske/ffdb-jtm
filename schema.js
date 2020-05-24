@@ -1,8 +1,17 @@
-const { JsonDecoder: jd } = require("ts.data.json");
+const { JsonDecoder: jd, ok, err } = require("ts.data.json");
 
-const performances = jd.objectStrict(
+const stringWithLength = (len) =>
+  new jd.Decoder((str) => {
+    if (str.length === len) {
+      return ok(str);
+    } else {
+      return err(`string is not ${len}`);
+    }
+  });
+
+const performance = jd.objectStrict(
   {
-    date: jd.string,
+    date: stringWithLength(8),
     endDate: jd.optional(jd.string),
     title: jd.string,
     time: jd.optional(jd.string),
@@ -17,6 +26,14 @@ const performances = jd.objectStrict(
   "Performance"
 );
 
+const recording = jd.objectStrict(
+  {
+    url: jd.optional(jd.string),
+  },
+  "Recording"
+);
+
 module.exports = {
-  performances,
+  performance,
+  recording,
 };
