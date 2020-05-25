@@ -28,7 +28,11 @@ const performance = jd.objectStrict(
 
 const recording = jd.objectStrict(
   {
-    url: jd.optional(jd.string),
+    releaseDate: stringWithLength(4),
+    title: jd.string,
+    artist: jd.string,
+    urls: jd.optional(jd.array(jd.string, "urls")),
+    works: jd.optional(jd.array(jd.string, "works")),
   },
   "Recording"
 );

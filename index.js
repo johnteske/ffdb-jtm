@@ -10,7 +10,10 @@ async function getPerformances() {
 
 async function getRecordings() {
   const recordings = await getData("recordings");
-  return recordings.map((d) => d.content);
+  return recordings.map((d) => ({
+    ...d.content,
+    releaseDate: d.filename.split("-")[0],
+  }));
 }
 
 module.exports = {
