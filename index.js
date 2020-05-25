@@ -1,24 +1,22 @@
-const { promises: fs } = require("fs");
-const path = require("path");
-
-const directoryPath = path.join(__dirname, "data/performances");
+const getData = require("./get-data");
 
 async function getPerformances() {
-  const contents = await fs.readdir(directoryPath, { withFileTypes: true });
+  const performances = await getData("performances");
+  return performances.map((d) => ({
+    ...d.content,
+    date: "20" + d.filename.split("-")[0],
+  }));
+}
 
-  const filenames = contents
-    .filter((dirent) => dirent.isFile())
-    .map((dirent) => dirent.name);
-
-  return await Promise.all(
-    filenames.map(async (filename) => {
-      const filepath = path.join(directoryPath, filename);
-      const contents = JSON.parse(await fs.readFile(filepath, "utf-8"));
-      return { ...contents, date: "20" + filename.split("-")[0] };
-    })
-  );
+async function getRecordings() {
+  const recordings = await getData("recordings");
+  return recordings.map((d) => ({
+    ...d.content,
+    releaseDate: d.filename.split("-")[0],
+  }));
 }
 
 module.exports = {
   getPerformances,
+  getRecordings,
 };
