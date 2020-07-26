@@ -1,14 +1,22 @@
 {
   "name": "ffdb-jtm",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "flat file database for johnteskemusic.com and related sites",
-  "main": "index.js",
+  "private": "true",
+  "main": "dist/index.js",
+  "files": "/dist",
   "scripts": {
-    "fmt": "npx prettier *.js data/**/*.json --write",
+    "build": "rm -rf dist && tsc -p .",
+    "fmt": "npx prettier src data/**/*.json --write",
     "test": "node tests.js"
   },
   "author": "John Teske",
   "license": "MIT",
+  "dependencies": {
+    "@types/node": "^14.0.26",
+    "ffdb": "*",
+    "typescript": "^3.9.7"
+  },
   "devDependencies": {
     "tape": "^5.0.0",
     "tape-promise": "^4.0.0",
