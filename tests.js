@@ -1,12 +1,12 @@
 const test = require("tape-promise/tape");
 
-const { getPerformances, getRecordings } = require("./index");
-const schema = require("./schema");
+const { getShows, getRecordings } = require("./dist");
+const schema = require("./dist/schema");
 
-test("getPerformances", async (t) => {
-  const performances = await getPerformances();
+test("getShows", async (t) => {
+  const shows = await getShows();
   t.assert(
-    performances.every((p) => schema.performance.decode(p).isOk()),
+    shows.every((p) => schema.show.decode(p).isOk()),
     "schema"
   );
 });

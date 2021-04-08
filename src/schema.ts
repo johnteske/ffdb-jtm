@@ -1,7 +1,7 @@
-const { JsonDecoder: jd, ok, err } = require("ts.data.json");
+import { JsonDecoder as jd, ok, err } from "ts.data.json";
 
-const stringWithLength = (len) =>
-  new jd.Decoder((str) => {
+const stringWithLength = (len: number): jd.Decoder<string> =>
+  new jd.Decoder((str: string) => {
     if (str.length === len) {
       return ok(str);
     } else {
@@ -9,7 +9,22 @@ const stringWithLength = (len) =>
     }
   });
 
-const performance = jd.objectStrict(
+// avoid collision with "performance"
+export type Show = {
+  date: string;
+  endDate?: string;
+  title: string;
+  time?: string;
+  short?: string;
+  long?: string;
+  price?: string;
+  address?: string;
+  url?: string;
+  tags?: string[];
+  works?: string[];
+};
+
+export const show = jd.objectStrict<Show>(
   {
     date: stringWithLength(8),
     endDate: jd.optional(jd.string),
@@ -23,10 +38,18 @@ const performance = jd.objectStrict(
     tags: jd.optional(jd.array(jd.string, "tags")),
     works: jd.optional(jd.array(jd.string, "works")),
   },
-  "Performance"
+  "Show"
 );
 
-const recording = jd.objectStrict(
+export type Recording = {
+  releaseDate: string;
+  title: string;
+  artist: string;
+  urls?: string[];
+  works?: string[];
+};
+
+export const recording = jd.objectStrict<Recording>(
   {
     releaseDate: stringWithLength(4),
     title: jd.string,
@@ -36,8 +59,3 @@ const recording = jd.objectStrict(
   },
   "Recording"
 );
-
-module.exports = {
-  performance,
-  recording,
-};
